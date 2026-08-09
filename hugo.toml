@@ -1,0 +1,22 @@
+baseURL = 'https://bac-stephan.github.io/my-site/'
+locale = 'de-de'
+title = 'Mein Blog'
+theme = 'PaperMod'
+
+[params]
+  defaultTheme = 'auto'
+  ShowShareButtons = true
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+
+[params.homeInfoParams]
+  Title = "Willkommen 👋"
+  Content = "Das ist mein neuer Blog – gebaut mit Hugo, PaperMod und Podman."
+
+[[menu.main]]
+  identifier = "posts"
+  name = "Beiträge"
+  url = "/posts/"
+  weight = 10
