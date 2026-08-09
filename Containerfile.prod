@@ -1,0 +1,13 @@
+# Phase 1: Hugo baut die fertigen HTML-Dateien mit angepasster BaseURL
+FROM floryn90/hugo:ext AS builder
+
+WORKDIR /src
+COPY . /src
+RUN ["hugo", "--minify", "--noBuildLock", "-b", "http://localhost:8080/"]
+
+# Phase 2: Caddy Webserver übernimmt die HTML-Dateien
+FROM caddy:alpine
+
+COPY --from=builder /src/public /usr/share/caddy
+
+EXPOSE 80
