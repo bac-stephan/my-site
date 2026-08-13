@@ -2,7 +2,7 @@
 title: "Hugo, Podman & Caddy Workflow"
 subtitle: "Spickzettel & Befehlsübersicht für Fedora"
 author: "Stephan"
-date: "10. August 2026"
+date: "14. August 2026"
 abstract: "Eine kompakte Übersicht über den lokalen Entwicklungs-Workflow mit Hugo, Multi-Stage Container-Builds und automatisiertem PDF-Export."
 keywords: [Hugo, Podman, Caddy, Fedora, Pandoc]
 geometry: "margin=2cm"
@@ -22,6 +22,34 @@ header-includes:
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0.4pt}
 ---
+
+\newpage  
+
+# Workflow  
+
+## Requirements  
+
+Ist alles Installiert was gebraucht wird?  
+
+\definecolor{rosabg}{RGB}{255, 235, 240}
+\definecolor{rosaborder}{RGB}{230, 160, 180}
+
+\fcolorbox{rosaborder}{rosabg}{
+\begin{minipage}{0.96\linewidth}
+\small
+Kurz testen ob alles da ist mit \texttt{which vim, pandoc, git, podman, docker, asciinema, gh}:
+
+\ttfamily
+/usr/bin/vim\\
+/usr/bin/pandoc\\
+/usr/bin/git\\
+/usr/bin/podman\\
+/usr/local/bin/docker\\
+/usr/bin/asciinema\\
+/usr/bin/gh
+\end{minipage}
+}
+
 
 ## asciinema rec und play vorbereiten
 
@@ -47,10 +75,12 @@ header-includes:
 
 ## asciinema command
 
-```bash
+```bash  
+
 which asciinema
 
-/usr/bin/asciinema
+/usr/bin/asciinema  
+
 ```
 Danach
 
