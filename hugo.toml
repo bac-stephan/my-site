@@ -1,22 +1,21 @@
-baseURL = 'https://bac-stephan.github.io/my-site/'
-locale = 'de-de'
-title = 'Mein Blog'
+baseURL = 'https://adduser.de/'
+languageCode = 'de-de'
+title = 'adduser.de'
 theme = 'PaperMod'
 
 [params]
-  defaultTheme = 'auto'
-  ShowShareButtons = true
-  ShowReadingTime = true
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
+  env = 'development'
+  title = 'adduser.de'
+  description = 'Gedanken, Skripte & Notizen rund um Linux, Container & Open Source'
+  author = 'Stephan'
+  
+  [params.homeInfoParams]
+    Title = 'Willkommen auf adduser.de 👋'
+    Content = 'Hier dokumentiere ich Notizen, Workflows und Experimente rund um Fedora, Podman, Caddy und Open-Source-Werkzeuge.'
 
-[params.homeInfoParams]
-  Title = "Willkommen 👋"
-  Content = "Das ist mein neuer Blog – gebaut mit Hugo, PaperMod und Podman."
-
-[[menu.main]]
-  identifier = "posts"
-  name = "Beiträge"
-  url = "/posts/"
-  weight = 10
+[menu]
+  [[menu.main]]
+    identifier = 'posts'
+    name = 'Beiträge'
+    url = '/posts/'
+    weight = 10
