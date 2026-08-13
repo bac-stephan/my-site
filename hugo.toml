@@ -1,5 +1,5 @@
 baseURL = 'https://adduser.de/'
-languageCode = 'de-de'
+locale = 'de-DE'
 title = 'adduser.de'
 theme = 'PaperMod'
 
