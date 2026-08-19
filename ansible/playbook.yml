@@ -1,0 +1,67 @@
+---
+- name: Webserver fuer adduser.de mit Podman und Caddy einrichten
+  hosts: webserver
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.10
+
+  tasks:
+    - name: Alten Nginx-Dienst stoppen und deaktivieren
+      ansible.builtin.systemd:
+        name: nginx
+        state: stopped
+        enabled: false
+      ignore_errors: true
+
+    - name: Podman auf Ubuntu installieren
+      ansible.builtin.apt:
+        name: podman
+        state: present
+        update_cache: true
+
+    - name: Zielverzeichnis fuer Website-Dateien erstellen
+      ansible.builtin.file:
+        path: /var/www/adduser.de
+        state: directory
+        owner: stephan
+        group: stephan
+        mode: '0755'
+
+    - name: Konfigurationsverzeichnis fuer Caddy erstellen
+      ansible.builtin.file:
+        path: /etc/caddy
+        state: directory
+        mode: '0755'
+
+    - name: Caddyfile-Konfiguration auf dem Server anlegen
+      ansible.builtin.copy:
+        dest: /etc/caddy/Caddyfile
+        mode: '0644'
+        content: |
+          adduser.de, www.adduser.de {
+              root * /usr/share/caddy
+              file_server
+          }
+
+    - name: Caddy-Container starten
+      containers.podman.podman_container:
+        name: adduser-caddy
+        image: docker.io/library/caddy:alpine
+        state: started
+        recreate: true
+        restart_policy: always
+        ports:
+          - "80:80"
+          - "443:443"
+        volumes:
+          - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+          - /var/www/adduser.de:/usr/share/caddy:ro
+          - caddy_data:/data
+          - caddy_config:/config
+
+    - name: Hugo-Dateien auf den Server synchronisieren
+      ansible.builtin.synchronize:
+        src: "../public/"
+        dest: "/var/www/adduser.de/"
+        delete: true
+      become: false
