@@ -1,7 +1,7 @@
 ---
 - name: Webserver fuer adduser.de mit Podman und Caddy einrichten
   hosts: webserver
-  become: true
+  become: true 
   vars:
     ansible_python_interpreter: /usr/bin/python3.10
 
@@ -17,7 +17,7 @@
       ansible.builtin.apt:
         name: podman
         state: present
-        update_cache: true
+        update_cache: false
 
     - name: Zielverzeichnis fuer Website-Dateien erstellen
       ansible.builtin.file:

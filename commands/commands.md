@@ -370,6 +370,54 @@ Opening https://gist.github.com/bac-stephan/e0e2ae84eb9195d51462639ae27ec7e3 in 
 
 ```
 
+An Gemini Morgen:
+
+netcup inwx ipv4 firewall
+
+Die zustandslose Firewall netcup verwaltet IPv4- und IPv6-Datenverkehr auf der
+Netzwerkschicht. Da es sich jedoch um einen zustandslosen Paketfilter handelt,
+werden keine Verbindungszustände verfolgt. Das bedeutet, dass Rückpakete für
+ausgehende Anfragen (wie DNS oder NTP) explizit zugelassen werden müssen, wenn
+die Regeln angepasst werden.  Grundlagen der Netcup-Firewall
+
+    Zustandsloser Betrieb: Im Gegensatz zu zustandsbehafteten Firewalls wertet
+sie jedes Paket einzeln aus, ohne sich aktive Verbindungen zu merken.
+Standardmäßige Einschränkungen: Ausgehender Datenverkehr über Port 25 (SMTP)
+ist standardmäßig blockiert, um Spam zu verhindern.  Verwaltung: Konfigurierbar
+direkt im netcup Server Control Panel (SCP) für Server der Generation 12 und
+neuer. 
+
+Verwaltung von DNS und externem Datenverkehr
+
+    Explizite Regeln erforderlich: Wenn Sie Protokolle blockieren oder
+einschränken, müssen Sie manuell passende Egress- und Ingress-Regeln für
+wichtige Dienste wie UDP-Port 53 (DNS) hinzufügen, damit Antwortpakete nicht
+verworfen werden.  Domainverwaltung über INWX: Wenn Ihre Domain bei INWX
+gehostet wird, verweisen Sie Ihre A/AAAA-Einträge auf die öffentliche
+IPv4-Adresse Ihres netcup-Servers. Die DNS-Konfiguration der Domain erfolgt
+jedoch bei INWX, während die Port-/Paketfilterregeln auf der Netzwerkschicht
+von netcup festgelegt werden. 
+
+Wenn Sie mir mitteilen können, welcher spezifische Dienst oder welche
+Verbindung (z. B. DNS, WireGuard, Mailcow) nicht funktioniert, kann ich Ihnen
+die genauen Ingress- und Egress-Regeln nennen, die Sie der netcup-Firewall
+hinzufügen müssen.
+
+    florian-puschmann.de Netcup Firewall, NTP und DNS: Wenn eine Stateless
+Firewall ...  14.05.2026 — Zustandslose Firewall (Paketfilter). Eine Stateless
+Firewall betrachtet dagegen jedes Paket isoliert. Netcup SCP-Firewall Netcup
+Neue Firewall für Netcup vServer: Mehr Sicherheit ohne ...  Die netcup Firewall
+schützt vServer auf Netzwerkebene, kontrolliert den Traffic nach Regeln und
+ergänzt lokale Firewalls – kostenfrei für...  netcup Kundenforum netcup
+Firewall-Konfiguration - netcup Forum 15.12.2025 – EGRESS-Regeln bedeuten, dass
+der gesamte ausgehende Datenverkehr standardmäßig zugelassen ist … das
+Whitelisting von UDP-Datenverkehr erfordert die Erstellung einer EGRESS-Regel
+(appli…).
+
+Alle anzeigen
+
+
+
 <!--
 $ pandoc commands.md -o out.pdf --pdf-engine=xelatex
 $ vimdiff command.md in.md
